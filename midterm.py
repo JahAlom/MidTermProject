@@ -21,3 +21,6 @@ with open(args.filename, "r") as file:
 #total number of orders there were
 print("JSON successful")
 print("Total orders = ", len(orderlist))
+
+#Checking and reading order list and checking first order only
+print("#1: ", orderlist[0] if isinstance(orderlist, list) else list(orderlist.items())[:1])

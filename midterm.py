@@ -30,7 +30,7 @@ def customerslist(orders):
 
     #Dictionary created with for loop to follow to go through order list
     customers = {}
-    for order in orderlist:
+    for order in orders:
         phone = order["phone"]
         name = order["name"]
 
@@ -42,4 +42,43 @@ def customerslist(orders):
 
     #return customer info
     return customers
+
+#Function to test Item list in orders
+def itemslist(orders):
+    
+    #Dictionary created to store items
+    items = {}
+
+    #For loop to go through each order 
+    for order in orders:
+
+        #Nested for loop to go through each item in the order and grab the data
+        for item in order["items"]:
+            itemname = item["name"]
+            price = item["price"]
+
+            #Checking if the item exists or not and if not, initializes it
+            if itemname not in items:
+                items[itemname] = {
+                    "price": price,
+                    "orders": 0
+                }
+
+            items[itemname]["orders"] += 1
+
+    #Opening the json file and writes the item and dumps and writes the data in JSON format
+    with open("items.json", "w") as file:
+        json.dump(items, file, indent = 4)
+
+    #returns item info
+    return items
+
+#Calling the functions
+customers = customerslist(orderlist)
+items = itemslist(orderlist)
+
+#Print totals for customers, items
+print("Total individual customers: ", len(customers))
+print("Total singular items: ", len(items))
+
     

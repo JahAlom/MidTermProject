@@ -17,12 +17,6 @@ args = parse.parse_args()
 #The JSON file is opened and read
 with open(args.filename, "r", encoding="utf-8") as file:
     orderlist = json.load(file)
-#Printing messages to check if JSON succeeded and total number of orders there were
-print("JSON successful")
-print("Total orders = ", len(orderlist))
-
-#Checking and reading order list and checking first order only
-print("#1 Order: ", orderlist[0] if isinstance(orderlist, list) else list(orderlist.items())[:1])
 
 #Function to create customer list of orders
 def customerslist(orders):
@@ -44,12 +38,12 @@ def customerslist(orders):
     return customers
 
 #Function to test Item list in orders
-def itemslist(orders):    
+def itemslist(orders):
     """Create a dictionary of item orders and save their prices and counts to a JSON file."""
-        
+
     #Dictionary created to store items
     items = {}
-    #For loop to go through each order 
+    #For loop to go through each order
     for order in orders:
         #Nested for loop to go through each item in the order and grab the data
         for item in order["items"]:
@@ -76,6 +70,7 @@ def itemslist(orders):
 customers = customerslist(orderlist)
 items = itemslist(orderlist)
 
-#Print totals for customers, items
+#Print totals for customers, items, orders
+print("\nTotal orders = ", len(orderlist))
 print("\nTotal individual customers: ", len(customers))
 print("\nTotal singular items: ", len(items))
